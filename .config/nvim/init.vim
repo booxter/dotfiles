@@ -13,16 +13,21 @@ Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'github/copilot.vim'
 call plug#end()
 
 colorscheme gruvbox
 
 " Mirror the NERDTree before showing it. This makes it the same on all tabs.
 map <silent> <C-n> :NERDTreeFocus<CR>
-
-lua require('lua_config')
 
 " Enable Tab / Shift Tab to cycle completion options
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
