@@ -24,6 +24,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'github/copilot.vim'
 call plug#end()
 
+lua require("init")
+
 colorscheme gruvbox
 
 " Mirror the NERDTree before showing it. This makes it the same on all tabs.
