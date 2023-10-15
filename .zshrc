@@ -17,4 +17,7 @@ export PATH="/usr/local/lib/ruby/gems/3.1.0/bin:$PATH"
 alias vim='nvim'
 export EDITOR='nvim'
 
+# still use emacs bindings
+bindkey -e
+
 . $HOME/.zshrc.local
