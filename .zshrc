@@ -20,4 +20,6 @@ export EDITOR='nvim'
 # still use emacs bindings
 bindkey -e
 
-. $HOME/.zshrc.local
+if [ -e $HOME/.zshrc.local ]; then
+  . $HOME/.zshrc.local
+fi
