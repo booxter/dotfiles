@@ -4,7 +4,7 @@ set -e
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 PRESENT=false
 
-DOT_FOLDERS="git,nvim,tmux,zsh"
+DOT_FOLDERS="bash,git,nvim,tmux,zsh"
 
 for folder in $(echo $DOT_FOLDERS | sed "s/,/ /g"); do
   echo "[+] Folder :: $folder"
