@@ -21,7 +21,7 @@ Plug 'preservim/nerdtree'
 "Plug 'kien/ctrlp.vim'
 
 "Plug 'neovim/nvim-lsp'
-"Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 "Plug 'hrsh7th/cmp-nvim-lsp'
 "Plug 'hrsh7th/cmp-buffer'
 "Plug 'hrsh7th/cmp-path'
@@ -51,6 +51,6 @@ let NERDTreeQuitOnOpen=1
 "let g:completion_enable_fuzzy_match = 1
 "set completeopt=menuone,noinsert,noselect
 
-"lua << EOF
-"require'lspconfig'.pylsp.setup{}
-"EOF
+lua << EOF
+require'lspconfig'.pylsp.setup{}
+EOF
