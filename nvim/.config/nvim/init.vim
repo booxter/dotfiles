@@ -1,4 +1,5 @@
 " TODO: switch dotfiles to default platform path
+" TODO: install vim-plug elsewhere
 " Install vim-plug if not found
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
