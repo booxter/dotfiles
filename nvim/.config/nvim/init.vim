@@ -34,7 +34,7 @@ call plug#end()
 colorscheme gruvbox
 
 " Mirror the NERDTree before showing it. This makes it the same on all tabs.
-map <silent> <C-n> :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
 
 "" Enable Tab / Shift Tab to cycle completion options
 "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
