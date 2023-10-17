@@ -22,7 +22,6 @@ Plug 'tpope/vim-fugitive'
 
 "Plug 'kien/ctrlp.vim'
 
-"Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
 "Plug 'hrsh7th/cmp-nvim-lsp'
 "Plug 'hrsh7th/cmp-buffer'
