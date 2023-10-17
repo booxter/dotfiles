@@ -1,20 +1,10 @@
-"syntax on
-"set nu ru et
-"set ts=2 sts=2 sw=2
-"set cursorline
-"set hlsearch
-
-"set nocompatible   " be improved, required
-"filetype off       " required
-
+" TODO: switch dotfiles to default platform path
 " Install vim-plug if not found
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
 endif
 
-" TODO: switch dotfiles to default platform path
 call plug#begin('~/.config/nvim/plugged')
 Plug 'morhetz/gruvbox'
 "Plug 'tpope/vim-fugitive'
@@ -34,8 +24,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 colorscheme gruvbox
-
-" autocmd VimEnter * GoInstallBinaries
 
 "" Mirror the NERDTree before showing it. This makes it the same on all tabs.
 "map <silent> <C-n> :NERDTreeFocus<CR>
