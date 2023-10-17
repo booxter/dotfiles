@@ -14,8 +14,10 @@ Plug 'morhetz/gruvbox'
 " golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" dev
+Plug 'preservim/nerdtree'
+
 "Plug 'tpope/vim-fugitive'
-"Plug 'preservim/nerdtree'
 "Plug 'kien/ctrlp.vim'
 
 "Plug 'neovim/nvim-lsp'
@@ -31,8 +33,8 @@ call plug#end()
 
 colorscheme gruvbox
 
-"" Mirror the NERDTree before showing it. This makes it the same on all tabs.
-"map <silent> <C-n> :NERDTreeFocus<CR>
+" Mirror the NERDTree before showing it. This makes it the same on all tabs.
+map <silent> <C-n> :NERDTreeFocus<CR>
 
 "" Enable Tab / Shift Tab to cycle completion options
 "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
