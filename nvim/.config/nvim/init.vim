@@ -33,6 +33,7 @@ call plug#end()
 
 colorscheme gruvbox
 
+" NERDTree
 set autochdir
 nnoremap <C-n> :tabdo NERDTreeToggle \| :wincmd p<cr>
 
@@ -44,6 +45,10 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 
 " Close NERDTree on open
 let NERDTreeQuitOnOpen=1
+
+" vim-go
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 "" Enable Tab / Shift Tab to cycle completion options
 "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
