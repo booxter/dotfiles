@@ -6,11 +6,16 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+
+" colorscheme
 Plug 'morhetz/gruvbox'
+
+" golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 "Plug 'tpope/vim-fugitive'
 "Plug 'preservim/nerdtree'
 "Plug 'kien/ctrlp.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "Plug 'neovim/nvim-lsp'
 "Plug 'neovim/nvim-lspconfig'
