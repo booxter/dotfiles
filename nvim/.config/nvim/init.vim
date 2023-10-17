@@ -17,7 +17,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " dev
 Plug 'preservim/nerdtree'
 
-"Plug 'tpope/vim-fugitive'
+" git
+Plug 'tpope/vim-fugitive'
+
 "Plug 'kien/ctrlp.vim'
 
 "Plug 'neovim/nvim-lsp'
