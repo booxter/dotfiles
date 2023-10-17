@@ -15,9 +15,8 @@ Plug 'morhetz/gruvbox'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'pearofducks/ansible-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" TODO: install dependencies from packages
-Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
 
 " dev
 Plug 'preservim/nerdtree'
@@ -61,12 +60,12 @@ let g:go_info_mode='gopls'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-let g:coc_filetype_map = {
-  \ 'yaml.ansible': 'ansible',
-  \ }
+"let g:coc_filetype_map = {
+"  \ 'yaml.ansible': 'ansible',
+"  \ }
 
+"require'lspconfig'.ansiblels.setup{}
 lua << EOF
 require'lspconfig'.pylsp.setup{}
-require'lspconfig'.ansiblels.setup{}
 require'lspconfig'.gopls.setup{}
 EOF
