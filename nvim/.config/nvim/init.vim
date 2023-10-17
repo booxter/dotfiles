@@ -33,8 +33,17 @@ call plug#end()
 
 colorscheme gruvbox
 
-" Mirror the NERDTree before showing it. This makes it the same on all tabs.
-nnoremap <C-n> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
+set autochdir
+nnoremap <C-n> :tabdo NERDTreeToggle \| :wincmd p<cr>
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror \| wincmd p | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close NERDTree on open
+let NERDTreeQuitOnOpen=1
 
 "" Enable Tab / Shift Tab to cycle completion options
 "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
