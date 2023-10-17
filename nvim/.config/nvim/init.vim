@@ -13,10 +13,7 @@ Plug 'morhetz/gruvbox'
 
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 Plug 'pearofducks/ansible-vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
 
 " dev
 Plug 'preservim/nerdtree'
@@ -24,8 +21,6 @@ Plug 'github/copilot.vim'
 
 " git
 Plug 'tpope/vim-fugitive'
-
-"Plug 'kien/ctrlp.vim'
 
 Plug 'neovim/nvim-lspconfig'
 
@@ -60,11 +55,6 @@ let g:go_info_mode='gopls'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-"let g:coc_filetype_map = {
-"  \ 'yaml.ansible': 'ansible',
-"  \ }
-
-"require'lspconfig'.ansiblels.setup{}
 lua << EOF
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
