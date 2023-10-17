@@ -35,7 +35,7 @@ call plug#end()
 
 colorscheme gruvbox
 
-autocmd VimEnter * GoInstallBinaries
+" autocmd VimEnter * GoInstallBinaries
 
 "" Mirror the NERDTree before showing it. This makes it the same on all tabs.
 "map <silent> <C-n> :NERDTreeFocus<CR>
