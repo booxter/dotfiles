@@ -13,7 +13,7 @@ Plug 'morhetz/gruvbox'
 
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'pearofducks/ansible-vim'
+Plug 'sheerun/vim-polyglot'
 
 " dev
 Plug 'preservim/nerdtree'
