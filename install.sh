@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
-DOT_FOLDERS="bash,git,iterm2,nvim,tmux,zsh"
+
+# TODO: introspect repo instead of listing each module here
+DOT_FOLDERS="bash,git,home_bin,iterm2,nvim,tmux,zsh"
 
 stow --verbose -t $HOME --restow $(echo $DOT_FOLDERS | sed "s/,/ /g")
 
