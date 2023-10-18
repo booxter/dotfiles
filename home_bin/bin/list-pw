@@ -8,9 +8,6 @@ fi
 
 LIMIT=10
 
-# TODO: this prints errors like
-# You should provide the server version in the URL configured via git-config or --server
-
 proj=$1
 if [ ${proj} = "ovs" ]; then
   proj=openvswitch
