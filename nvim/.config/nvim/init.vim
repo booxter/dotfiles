@@ -58,4 +58,5 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 lua << EOF
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
+require'lspconfig'.clangd.setup{}
 EOF
