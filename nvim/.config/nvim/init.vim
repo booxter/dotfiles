@@ -35,7 +35,6 @@ call plug#end()
 colorscheme gruvbox
 
 " NERDTree
-set autochdir
 nnoremap <C-n> :tabdo NERDTreeToggle \| :wincmd p<cr>
 
 " Open the existing NERDTree on each new tab.
