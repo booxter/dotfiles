@@ -4,4 +4,5 @@
 [pw]
 	server = https://patchwork.ozlabs.org/
 	project = ovn
-	token = CHANGE_THIS
+[include]
+	path = ~/.git-pw-token-config
