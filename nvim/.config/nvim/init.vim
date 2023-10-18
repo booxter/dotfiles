@@ -54,6 +54,9 @@ let g:go_info_mode='gopls'
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Use ESC in terminal
+tnoremap <Esc> <C-\><C-n>
+
 lua << EOF
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
