@@ -1,3 +1,7 @@
 [user]
 	email = ihrachys@redhat.com
 	name = Ihar Hrachyshka
+[pw]
+	server = https://patchwork.ozlabs.org/
+	project = ovn
+	token = CHANGE_THIS
