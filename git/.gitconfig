@@ -1,8 +1,17 @@
 [user]
 	email = ihrachys@redhat.com
 	name = Ihar Hrachyshka
+
 [pw]
 	server = https://patchwork.ozlabs.org/api/1.2
 	project = ovn
+
+[sendemail]
+	confirm = auto
+	smtpServer = smtp.gmail.com
+	smtpServerPort = 587
+	smtpEncryption = tls
+	smtpUser = ihrachys@redhat.com
+
 [include]
-	path = ~/.git-pw-token-config
+	path = ~/.gitconfig.local
