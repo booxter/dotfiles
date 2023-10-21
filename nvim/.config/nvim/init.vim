@@ -11,18 +11,17 @@ call plug#begin('~/.config/nvim/plugged')
 " colorscheme
 Plug 'morhetz/gruvbox'
 
+" dev
+Plug 'neovim/nvim-lspconfig'
+Plug 'preservim/nerdtree'
+Plug 'github/copilot.vim'
+
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
-" dev
-Plug 'preservim/nerdtree'
-Plug 'github/copilot.vim'
-
 " git
 Plug 'tpope/vim-fugitive'
-
-Plug 'neovim/nvim-lspconfig'
 
 "Plug 'hrsh7th/nvim-cmp'
 "Plug 'hrsh7th/cmp-nvim-lsp'
@@ -77,6 +76,8 @@ function! MaximizeToggle()
     only
   endif
 endfunction
+
+set clipboard=unnamedplus
 
 lua << EOF
 require'lspconfig'.pylsp.setup{}
