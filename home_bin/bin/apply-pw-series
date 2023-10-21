@@ -1,0 +1,18 @@
+#!/bin/sh
+if [ $# -le 1 ]
+  then
+    # TODO: how to error properly?
+    echo "$0 <proj> <id>" 1>&2
+    exit 1
+fi
+
+# TODO: move this to a helper function and reuse across all scripts for git-pw
+proj=$1
+if [ ${proj} = "ovs" ]; then
+  proj=openvswitch
+fi
+
+id=$2
+
+cmd="git pw --project $proj"
+${cmd} series apply $2
