@@ -1,4 +1,5 @@
 #!/bin/sh
+set -xe
 
 if [ $# -eq 0 ]; then
     # TODO: how to error properly?
@@ -14,9 +15,10 @@ fi
 git clone git@github.com:${proj}
 pushd $(basename ${proj})
 
-tox -l | grep '^py3' 2>&1 > /dev/null
+toxenv=py3
+tox -l | grep ^${toxenv} 2>&1 > /dev/null
 if [ $? == 0 ]; then
-  tox -e py3 --notest
+  tox -e ${toxenv} --notest
 fi
 
 popd

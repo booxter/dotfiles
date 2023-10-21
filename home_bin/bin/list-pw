@@ -1,4 +1,6 @@
 #!/bin/sh
+set -xe
+
 if [ $# -eq 0 ]; then
     # TODO: how to error properly?
     echo "$0 <proj>" 1>&2
