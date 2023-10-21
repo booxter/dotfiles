@@ -77,7 +77,11 @@ function! MaximizeToggle()
   endif
 endfunction
 
+" yank to system buffer by default
 set clipboard=unnamedplus
+
+" rebalance pane sizes on terminal size change
+autocmd VimResized * wincmd =
 
 lua << EOF
 require'lspconfig'.pylsp.setup{}
