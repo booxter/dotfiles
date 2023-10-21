@@ -1,6 +1,5 @@
 #!/bin/sh
-if [ $# -eq 0 ]
-  then
+if [ $# -eq 0 ]; then
     # TODO: how to error properly?
     echo "$0 <proj>" 1>&2
     exit 1

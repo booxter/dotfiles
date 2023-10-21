@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+    # TODO: how to error properly?
+    echo "$0 <proj>" 1>&2
+    exit 1
+fi
+
+proj=$1
+if [[ ${proj} != */* ]]; then
+  proj=openstack/${proj}
+fi
+
+git clone git@github.com:${proj}
+pushd $(basename ${proj})
+
+tox -l | grep '^py3' 2>&1 > /dev/null
+if [ $? == 0 ]; then
+  tox -e py3 --notest
+fi
+
+popd
