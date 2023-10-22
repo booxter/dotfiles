@@ -8,6 +8,8 @@ set record = +Sent
 
 ## Send options.
 set smtp_url=smtps://$imap_user@smtp.gmail.com
+set smtp_authenticators = "login"
+set smtp_pass=$imap_pass
 set realname='Ihar Hrachyshka'
 set from=ihar@redhat.com
 set hostname="redhat.com"

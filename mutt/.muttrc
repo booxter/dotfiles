@@ -7,11 +7,18 @@ set mail_check = 60
 set mbox_type=Maildir
 set imap_check_subscribed
 set sort = threads
+set sort_aux=last-date-received
+set copy=no
+
+## Shortcuts for multiple accounts
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/personal<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/work<enter><change-folder>!<enter>'
+macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+
+## gmail
+source "~/.mutt/personal"
+folder-hook $folder 'source ~/.mutt/personal'
 
 ## rh
 source "~/.mutt/work"
 folder-hook $folder 'source ~/.mutt/work'
-
-## gmail
-#source "~/.mutt/personal"
-#folder-hook *ihar.hrachyshka@gmail.com/ 'source ~/.mutt/personal'
