@@ -22,6 +22,8 @@ export EDITOR='nvim'
 # still use emacs bindings
 bindkey -e
 
+eval "$(_GRI_COMPLETE=source_zsh gri)"
+
 if [ -e $HOME/.zshrc.local ]; then
   . $HOME/.zshrc.local
 fi

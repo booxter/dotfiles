@@ -1,0 +1,1 @@
+eval "$(_GRI_COMPLETE=source_bash gri)"
