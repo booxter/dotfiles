@@ -9,6 +9,14 @@ set imap_check_subscribed
 set sort = threads
 set sort_aux=last-date-received
 set copy=no
+set mark_old=no
+
+# quicker folder switch
+set sleep_time = 0
+
+# quicker replies
+set fast_reply=yes
+set include=yes
 
 ## Shortcuts for multiple accounts
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/personal<enter><change-folder>!<enter>'
@@ -106,3 +114,9 @@ macro attach,compose gx  "<pipe-entry>urlview<Enter>"                           
 
 bind editor \Cp history-up
 bind editor \Cn history-down
+
+# A = Mark All as Read
+macro index A \
+    "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter><tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>" \
+    "mark all new as read"
+
