@@ -11,10 +11,13 @@ stow --verbose -t $HOME --restow $(echo $DOT_FOLDERS | sed "s/,/ /g")
 
 if [ ! -e $HOME/.gitconfig.local ]; then
 	cp gitconfig.local $HOME/.gitconfig.local
+  chmod go-rwx $HOME/.gitconfig.local
 	echo "Don't forget to configure .gitconfig.local"
 fi
 
 if [ ! -e $HOME/.netrc ]; then
 	cp netrc.local $HOME/.netrc
+  chmod go-rwx $HOME/.netrc
 	echo "Don't forget to configure .netrc"
 fi
+
