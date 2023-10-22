@@ -23,7 +23,7 @@ fi
 
 if [ ! -e $HOME/.config/gertty/gertty.yaml ]; then
 	mkdir -p $HOME/.config/gertty
-	cp /usr/share/gertty/examples/opendev-gertty.yaml $HOME/.config/gertty/gertty.yaml
+	cp gertty.yaml $HOME/.config/gertty/gertty.yaml
 	chmod go-rwx $HOME/.config/gertty/gertty.yaml
 	echo "Don't forget to configure $HOME/.config/gertty/gertty.yaml"
 fi
