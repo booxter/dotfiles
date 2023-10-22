@@ -1,1 +1,1 @@
-eval "$(_GRI_COMPLETE=source_bash gri)"
+eval "$(_GRI_COMPLETE=bash_source gri)"
