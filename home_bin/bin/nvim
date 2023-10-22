@@ -3,4 +3,6 @@ if [ -e .tox/py3 ]; then
   source .tox/py3/bin/activate
 fi
 nvim $@
-deactivate
+if [ -e .tox/py3 ]; then
+  deactivate
+fi
