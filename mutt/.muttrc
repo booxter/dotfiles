@@ -14,6 +14,8 @@ set mark_old=no
 # sidebar
 set sidebar_visible = yes
 set sidebar_width = 25
+set sidebar_format = '%B%* %N*'
+set sidebar_new_mail_only = yes
 
 bind index,pager \Ck sidebar-prev
 bind index,pager \Cj sidebar-next
