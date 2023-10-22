@@ -21,9 +21,18 @@ if [ ! -e $HOME/.netrc ]; then
 	echo "Don't forget to configure .netrc"
 fi
 
-if [ ! -e $HOME/.config/gertty/gertty.yaml ]; then
-	mkdir -p $HOME/.config/gertty
-	cp gertty.yaml $HOME/.config/gertty/gertty.yaml
-	chmod go-rwx $HOME/.config/gertty/gertty.yaml
-	echo "Don't forget to configure $HOME/.config/gertty/gertty.yaml"
+GERTTY_CONFIG=$HOME/.config/gertty/gertty.yaml
+if [ ! -e $GERTTY_CONFIG ]; then
+	mkdir -p $(dirname $GERTTY_CONFIG)
+	cp gertty.yaml $GERTTY_CONFIG
+	chmod go-rwx $GERTTY_CONFIG
+	echo "Don't forget to configure $GERTTY_CONFIG"
+fi
+
+HUBTTY_CONFIG=$HOME/.config/hubtty/hubtty.yaml
+if [ ! -e $HUBTTY_CONFIG ]; then
+	mkdir -p $(dirname $HUBTTY_CONFIG)
+	cp hubtty.yaml $HUBTTY_CONFIG
+	chmod go-rwx $HUBTTY_CONFIG
+	echo "Don't forget to configure $HUBTTY_CONFIG"
 fi
