@@ -11,6 +11,14 @@ set sort_aux=last-date-received
 set copy=no
 set mark_old=no
 
+# sidebar
+set sidebar_visible = yes
+set sidebar_width = 25
+
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Cl sidebar-open
+
 # quicker folder switch
 set sleep_time = 0
 
