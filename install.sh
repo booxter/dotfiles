@@ -5,7 +5,7 @@ set -e
 DOT_FOLDERS="bash,git,gri,home_bin,iterm2,nvim,tmux,zsh"
 
 # TODO: reconsider a better approach to clean up system default files?
-rm $HOME/.bashrc
+rm -f $HOME/.bashrc
 
 stow --verbose -t $HOME --restow $(echo $DOT_FOLDERS | sed "s/,/ /g")
 
