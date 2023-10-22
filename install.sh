@@ -10,3 +10,8 @@ if [ ! -e $HOME/.gitconfig.local ]; then
 	cp gitconfig.local $HOME/.gitconfig.local
 	echo "Don't forget to configure .gitconfig.local"
 fi
+
+if [ ! -e $HOME/.netrc ]; then
+	cp netrc.local $HOME/.netrc
+	echo "Don't forget to configure .netrc"
+fi
