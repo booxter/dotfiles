@@ -16,6 +16,10 @@ set mark_old=no
 auto_view text/html
 alternative_order text/plain text/html
 
+# urlview (Ctrl+O)
+macro index,pager \co "<pipe-message> urlview<Enter>" "call urlview to extract URLs out of a message"
+macro attach,compose \co "<pipe-entry> urlview<Enter>" "call urlview to extract URLs out of a message"
+
 # sidebar
 set sidebar_visible = yes
 set sidebar_width = 25
