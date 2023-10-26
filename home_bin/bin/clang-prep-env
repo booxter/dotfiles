@@ -19,8 +19,11 @@ case $1 in
     ;;
 esac
 
-git clone git@github.com:${proj}
-pushd $(basename ${proj})
+dest=$(basename ${proj})
+if [ ! -e "${dest}" ]; then
+  git clone git@github.com:${proj}
+fi
+pushd ${dest}
 
 function bear_make() {
   # TODO: don't build the same tree twice
@@ -30,6 +33,7 @@ function bear_make() {
 
 case $1 in
   ovs)
+    rm -rf sparse
     .ci/linux-prepare.sh
     .ci/linux-build.sh
     bear_make
