@@ -30,6 +30,10 @@ bind index,pager \Ck sidebar-prev
 bind index,pager \Cj sidebar-next
 bind index,pager \Cl sidebar-open
 
+# new by default
+macro index .i  "<limit>(~O|~N|~F)<Enter>"  "view old/new/flag"
+macro index .a  "<limit>~A<Enter>"       "view all"
+
 # quicker folder switch
 set sleep_time = 0
 
@@ -45,10 +49,12 @@ macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
 ## gmail
 source "~/.mutt/personal"
 folder-hook $folder 'source ~/.mutt/personal'
+folder-hook $folder push .i
 
 ## rh
 source "~/.mutt/work"
 folder-hook $folder 'source ~/.mutt/work'
+folder-hook $folder push .i
 
 ## Colors from fedora package
 color hdrdefault red default
