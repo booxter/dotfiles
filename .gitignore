@@ -1,1 +1,3 @@
 nvim/.config/nvim/plugged
+home_bin/bin/cgcc
+home_bin/bin/sparse
