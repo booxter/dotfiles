@@ -41,4 +41,9 @@ if [ "$TERM" != "linux" ] && type powerline-go 1> /dev/null; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
 
+# run tmux in an interactive ssh session
+if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
+  tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+fi
+
 #. $HOME/.bash_prompt
