@@ -43,6 +43,7 @@ fi
 
 # run tmux in an interactive ssh session
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
+  export DISPLAY=fake # make pass assume it can use xclip
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
 
