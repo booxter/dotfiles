@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ x"${YANK_TO_TMUX}" = "xyes" ]; then
+  $HOME/bin/tmux-yank.sh $@
+else
+  /usr/bin/xclip $@
+fi
