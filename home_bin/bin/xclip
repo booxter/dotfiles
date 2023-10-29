@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ $- =~ i ]] && [[ -z "$TMUX" ]]; then
+if [[ -n "$TMUX" ]]; then
   $HOME/bin/tmux-yank.sh $@
 else
   /usr/bin/xclip $@

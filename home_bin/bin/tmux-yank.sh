@@ -3,7 +3,7 @@
 #
 # Stolen from https://blog.landofcrispy.com/index.php/2021/01/06/clipboard-integration-between-tmux-nvim-zsh-x11-across-ssh-sessions/
 
-if [ $1 == "-o" ]; then
+if [ x"$1" = x"-o" ]; then
   tmux show-buffer
 else
   TEMPFILE="`tempfile 2>/dev/null`"
