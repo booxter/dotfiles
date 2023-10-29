@@ -2,6 +2,8 @@
 
 if [[ -n "$TMUX" ]]; then
   $HOME/bin/tmux-yank.sh $@
+else if [[ -n "$SSH_TTY" ]]; then
+  $HOME/bin/iterm2-yank.sh $@
 else
   /usr/bin/xclip $@
 fi
