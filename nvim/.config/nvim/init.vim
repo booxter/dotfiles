@@ -100,7 +100,6 @@ require'toggleterm'.setup{
     end
   end,
   open_mapping = [[<c-\>]],
-  shade_terminals = true,
   start_in_insert = true,
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
