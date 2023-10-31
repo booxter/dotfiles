@@ -25,6 +25,9 @@ if [ ! -e "${dest}" ]; then
 fi
 pushd ${dest}
 
+git submodule init
+git submodule update
+
 function bear_make() {
   # TODO: don't build the same tree twice
   make clean
@@ -39,7 +42,7 @@ case $1 in
     bear_make
     ;;
   ovn)
-    .ci/linux-build.sh
+    CC=clang .ci/linux-build.sh
     bear_make
     bear_run
     ;;
