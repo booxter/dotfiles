@@ -42,9 +42,13 @@ case $1 in
     bear_make
     ;;
   ovn)
+    # flake fix
+    pushd ovs
+    apply-pw-series ovs 380142
+    popd
+
     CC=clang .ci/linux-build.sh
     bear_make
-    bear_run
     ;;
   *)
     ;;
