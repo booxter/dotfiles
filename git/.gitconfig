@@ -13,5 +13,9 @@
 	smtpEncryption = tls
 	smtpUser = ihrachys@redhat.com
 
+[alias]
+	# from https://stackoverflow.com/questions/61195770/git-format-patch-repository-name-in-prefix-or-generated-prefix
+	format-patch-repo = !git format-patch --subject-prefix=\"PATCH $(basename $(git rev-parse --show-toplevel))\"
+
 [include]
 	path = ~/.gitconfig.local
