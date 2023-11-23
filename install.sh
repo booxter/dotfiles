@@ -2,7 +2,7 @@
 set -e
 
 # TODO: introspect repo instead of listing each module here
-DOT_FOLDERS="bash,git,gri,home_bin,iterm2,mutt,nvim,tmux,urlview,zsh"
+DOT_FOLDERS="bash,git,gri,home_bin,iterm2,mutt,nvim,readline,tmux,urlview,zsh"
 
 # TODO: reconsider a better approach to clean up system default files?
 rm -f $HOME/.bashrc $HOME/.bash_profile
