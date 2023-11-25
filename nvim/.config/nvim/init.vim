@@ -18,6 +18,7 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'preservim/nerdtree'
 Plug 'github/copilot.vim'
+Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
 
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
