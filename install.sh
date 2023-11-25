@@ -36,3 +36,8 @@ if [ ! -e $HUBTTY_CONFIG ]; then
 	chmod go-rwx $HUBTTY_CONFIG
 	echo "Don't forget to configure $HUBTTY_CONFIG"
 fi
+
+# install tpm
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
