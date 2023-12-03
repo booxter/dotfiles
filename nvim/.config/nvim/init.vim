@@ -24,12 +24,16 @@ Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 
+" smooth scroll
+Plug 'karb94/neoscroll.nvim'
+
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 
 " git
 Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
 
 "Plug 'hrsh7th/nvim-cmp'
 "Plug 'hrsh7th/cmp-nvim-lsp'
@@ -101,6 +105,9 @@ set foldenable
 
 lua << EOF
 require'ufo'.setup{}
+require('neoscroll').setup()
+require('gitsigns').setup()
+
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.clangd.setup{}
