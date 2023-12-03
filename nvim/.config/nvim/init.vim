@@ -19,6 +19,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'preservim/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
+Plug 'metakirby5/codi.vim'
 
 Plug 'kevinhwang91/promise-async'
 " Plug 'kevinhwang91/nvim-ufo'
@@ -106,6 +107,13 @@ autocmd VimResized * wincmd =
 
 set number
 set relativenumber
+
+let g:codi#interpreters = {
+      \ 'python': {
+          \ 'bin': 'python3',
+          \ },
+      \ }
+
 
 lua << EOF
 -- require'ufo'.setup{}
