@@ -8,6 +8,9 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
+" auto-refocus
+Plug 'nvim-focus/focus.nvim'
+
 " colorscheme
 Plug 'morhetz/gruvbox'
 
@@ -145,4 +148,5 @@ require'toggleterm'.setup{
 }
 require'lsp_signature'.setup()
 require'corn'.setup()
+require("focus").setup()
 EOF
