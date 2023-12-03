@@ -21,6 +21,12 @@ if [ ! -e $HOME/.netrc ]; then
 	echo "Don't forget to configure .netrc"
 fi
 
+if [ ! -e $HOME/.bashrc.local ]; then
+	cp bashrc.local $HOME/.bashrc.local
+	chmod go-rwx $HOME/.bashrc.local
+	echo "Don't forget to configure .bashrc.local"
+fi
+
 GERTTY_CONFIG=$HOME/.config/gertty/gertty.yaml
 if [ ! -e $GERTTY_CONFIG ]; then
 	mkdir -p $(dirname $GERTTY_CONFIG)

@@ -5,6 +5,10 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+if [ -f $HOME/.bashrc.local ]; then
+  . $HOME/.bashrc.local
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then

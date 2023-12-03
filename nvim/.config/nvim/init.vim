@@ -24,6 +24,9 @@ Plug 'github/copilot.vim'
 Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
 Plug 'metakirby5/codi.vim'
 
+Plug 'MunifTanjim/nui.nvim'
+Plug 'piersolenski/wtf.nvim'
+
 Plug 'kevinhwang91/promise-async'
 " Plug 'kevinhwang91/nvim-ufo'
 
@@ -149,4 +152,5 @@ require'toggleterm'.setup{
 require'lsp_signature'.setup()
 require'corn'.setup()
 require("focus").setup()
+require("wtf").setup()
 EOF
