@@ -1,4 +1,3 @@
-
 " TODO: switch dotfiles to default platform path
 " TODO: install vim-plug elsewhere
 " Install vim-plug if not found
@@ -22,9 +21,11 @@ Plug 'github/copilot.vim'
 Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
 
 Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo'
+" Plug 'kevinhwang91/nvim-ufo'
 
 Plug 'ray-x/lsp_signature.nvim'
+
+Plug 'RaafatTurki/corn.nvim'
 
 " smooth scroll
 Plug 'karb94/neoscroll.nvim'
@@ -98,15 +99,19 @@ set clipboard=unnamedplus
 autocmd VimResized * wincmd =
 
 " folding (from https://github.com/kevinhwang91/nvim-ufo#quickstart)
-set foldcolumn=1
-set foldlevel=99
-set foldlevelstart=99
-set foldenable
-" vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-" vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+" set foldcolumn=1
+" set foldlevel=99
+" set foldlevelstart=99
+" set foldenable
+
+set number
+set relativenumber
 
 lua << EOF
-require'ufo'.setup{}
+-- require'ufo'.setup{}
+-- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+-- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
 require('neoscroll').setup()
 require('gitsigns').setup()
 
@@ -131,4 +136,5 @@ require'toggleterm'.setup{
   auto_scroll = true, -- automatically scroll to the bottom on terminal output
 }
 require'lsp_signature'.setup()
+require'corn'.setup()
 EOF
