@@ -1,3 +1,4 @@
+
 " TODO: switch dotfiles to default platform path
 " TODO: install vim-plug elsewhere
 " Install vim-plug if not found
@@ -19,6 +20,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'preservim/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
+
+Plug 'kevinhwang91/promise-async'
+Plug 'kevinhwang91/nvim-ufo'
 
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -87,7 +91,16 @@ set clipboard=unnamedplus
 " rebalance pane sizes on terminal size change
 autocmd VimResized * wincmd =
 
+" folding (from https://github.com/kevinhwang91/nvim-ufo#quickstart)
+set foldcolumn=1
+set foldlevel=99
+set foldlevelstart=99
+set foldenable
+" vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+" vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
 lua << EOF
+require'ufo'.setup{}
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.clangd.setup{}
