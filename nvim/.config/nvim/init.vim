@@ -28,7 +28,7 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'piersolenski/wtf.nvim'
 
 Plug 'kevinhwang91/promise-async'
-" Plug 'kevinhwang91/nvim-ufo'
+Plug 'kevinhwang91/nvim-ufo'
 
 Plug 'ray-x/lsp_signature.nvim'
 
@@ -106,10 +106,10 @@ set clipboard=unnamedplus
 autocmd VimResized * wincmd =
 
 " folding (from https://github.com/kevinhwang91/nvim-ufo#quickstart)
-" set foldcolumn=1
-" set foldlevel=99
-" set foldlevelstart=99
-" set foldenable
+set foldcolumn=1
+set foldlevel=99
+set foldlevelstart=99
+set foldenable
 
 set number
 set relativenumber
@@ -122,9 +122,39 @@ let g:codi#interpreters = {
 
 
 lua << EOF
--- require'ufo'.setup{}
--- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
--- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+local handler = function(virtText, lnum, endLnum, width, truncate)
+    local newVirtText = {}
+    local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+    local sufWidth = vim.fn.strdisplaywidth(suffix)
+    local targetWidth = width - sufWidth
+    local curWidth = 0
+    for _, chunk in ipairs(virtText) do
+        local chunkText = chunk[1]
+        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+        if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+        else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, {chunkText, hlGroup})
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+                suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+        end
+        curWidth = curWidth + chunkWidth
+    end
+    table.insert(newVirtText, {suffix, 'MoreMsg'})
+    return newVirtText
+end
+require('ufo').setup({
+    fold_virt_text_handler = handler
+})
+
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 require('neoscroll').setup()
 require('gitsigns').setup()
