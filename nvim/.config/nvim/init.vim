@@ -24,6 +24,8 @@ Plug 'christoomey/vim-tmux-navigator', { 'lazy': 'false' }
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo'
 
+Plug 'ray-x/lsp_signature.nvim'
+
 " smooth scroll
 Plug 'karb94/neoscroll.nvim'
 
@@ -128,4 +130,5 @@ require'toggleterm'.setup{
   close_on_exit = true, -- close the terminal window when the process exits
   auto_scroll = true, -- automatically scroll to the bottom on terminal output
 }
+require'lsp_signature'.setup()
 EOF
