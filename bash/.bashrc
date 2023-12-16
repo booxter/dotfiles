@@ -31,7 +31,7 @@ fi
 unset rc
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -jobs $(jobs -p | wc -l))"
+    PS1="$(powerline-go -cwd-max-depth 3 -hostname-only-if-ssh -max-width 40 -error $? -jobs $(jobs -p | wc -l))"
 
     # Uncomment the following line to automatically clear errors after showing
     # them once. This not only clears the error for powerline-go, but also for
