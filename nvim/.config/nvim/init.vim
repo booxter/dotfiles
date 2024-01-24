@@ -45,11 +45,16 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
-"Plug 'hrsh7th/nvim-cmp'
 "Plug 'hrsh7th/cmp-nvim-lsp'
 "Plug 'hrsh7th/cmp-buffer'
 "Plug 'hrsh7th/cmp-path'
 "Plug 'hrsh7th/cmp-cmdline'
+
+Plug 'preservim/vim-markdown'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'epwalsh/obsidian.nvim'
 
 call plug#end()
 
@@ -101,6 +106,9 @@ endfunction
 
 " yank to system buffer by default
 set clipboard=unnamedplus
+
+" apparently needed for obsidian plugin
+set conceallevel=1
 
 " rebalance pane sizes on terminal size change
 autocmd VimResized * wincmd =
@@ -183,4 +191,12 @@ require'lsp_signature'.setup()
 require'corn'.setup()
 require("focus").setup()
 require("wtf").setup()
+require("obsidian").setup({
+  workspaces = {
+    {
+      name = "personal",
+      path = "~/obsidian",
+    },
+  },
+})
 EOF
