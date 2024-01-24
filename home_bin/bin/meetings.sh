@@ -14,7 +14,7 @@ fi
   -df "%Y-%M-%D" \
   eventsFrom:$DATE to:$DATE |\
 \
-  grep meet.google.com | grep reclaim.ai |\
+  grep 'meet.google.com\|primetime.bluejeans.com' | grep reclaim.ai |\
     sed "s/ ---.*$//g" |\
     sed "s/^-/$DATE/g" |\
     sed "s/[\/|]/~/g" |\
