@@ -275,6 +275,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>8729F9AB-1DBC-4021-98BE-A143C73FB570</string>
+	<key>EnableAPIServer</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideFromDockAndAppSwitcher</key>
@@ -1668,5 +1670,7 @@
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 </dict>
 </plist>

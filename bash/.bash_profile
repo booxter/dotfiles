@@ -47,5 +47,5 @@ then
 fi
 
 obs() {
-  cd ~/Google\ Drive/My\ Drive/Obsidian\ -\ Ihar\ -\ Main\ Brain/Main\ Brain
+  cd ~/obsidian
 }
