@@ -12,7 +12,7 @@ fi
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
-    PATH="$HOME/.local/bin:$HOME/bin:$HOME/go/bin:$PATH"
+    PATH="$HOME/.local/bin:$HOME/bin:$HOME/go/bin:$HOME/Library/Python/3.11/bin:$PATH"
 fi
 export PATH
 
