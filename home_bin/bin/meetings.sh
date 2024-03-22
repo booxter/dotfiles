@@ -8,14 +8,28 @@ if [ "x" = "x${DATE}" ]; then
   fi
 fi
 
-~/bin/icalBuddy \
-  -b "- " -nnr " " -eed -npn -nc -ps "/ --- /" \
-  -iep "title,notes" -po "title,notes" \
-  -df "%Y-%M-%D" \
-  eventsFrom:$DATE to:$DATE |\
-\
-  grep 'meet.google.com\|primetime.bluejeans.com' | grep reclaim.ai |\
-    sed "s/ ---.*$//g" |\
-    sed "s/^-/$DATE/g" |\
-    sed "s/[\/|]/~/g" |\
-    sed "s/:/-/g"
+meetings() {
+  ~/bin/icalBuddy \
+    -b "- " -nnr " " -eed -npn -nc -ps "/ --- /" \
+    -iep "title,notes" -po "title,notes" \
+    -df "%Y-%M-%D" \
+    eventsFrom:$DATE to:$DATE \
+  | grep 'meet.google.com\|primetime.bluejeans.com' | grep reclaim.ai
+}
+
+name() {
+  echo $1 |\
+  sed "s/ ---.*$//g" |\
+  sed "s/^-/$DATE/g" |\
+  sed "s/[\/|]/~/g" |\
+  sed "s/:/-/g"
+}
+
+url() {
+  echo "$1" | grep -o 'https://meet.google.com/[^ ]*'
+}
+
+IFS=$'\n'
+for m in $(meetings); do
+  echo $(url "$m") $(name "$m")
+done
