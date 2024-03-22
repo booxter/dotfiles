@@ -14,7 +14,7 @@ meetings() {
     -iep "title,notes" -po "title,notes" \
     -df "%Y-%M-%D" \
     eventsFrom:$DATE to:$DATE \
-  | grep 'meet.google.com\|primetime.bluejeans.com' | grep reclaim.ai
+  | grep 'meet.google.com' | grep reclaim.ai
 }
 
 name() {
