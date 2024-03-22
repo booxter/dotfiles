@@ -31,5 +31,10 @@ url() {
 
 IFS=$'\n'
 for m in $(meetings); do
-  echo $(url "$m") $(name "$m")
+  url=$(url "$m")
+  if [ "x" = "x$url" ]; then
+    echo $(name "$m")
+  else
+    echo $(url "$m") $(name "$m")
+  fi
 done
