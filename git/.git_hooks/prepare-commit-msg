@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# The quality of the commit messages is underwhelming. Disable the hook. May
+# try again with a better model later.
+SKIP_LLM_GITHOOK=1
+
 # Exit if the `SKIP_LLM_GITHOOK` environment variable is set
 if [ ! -z "$SKIP_LLM_GITHOOK" ]; then
   exit 0
