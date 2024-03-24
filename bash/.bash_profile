@@ -47,5 +47,5 @@ then
 fi
 
 obs() {
-  cd ~/obsidian
+  cd ~/notes
 }

@@ -194,8 +194,8 @@ require("wtf").setup()
 require("obsidian").setup({
   workspaces = {
     {
-      name = "personal",
-      path = "~/obsidian",
+      name = "notes",
+      path = "~/notes",
     },
   },
 })
