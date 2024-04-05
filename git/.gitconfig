@@ -21,3 +21,5 @@
 	path = ~/.gitconfig.local
 [rerere]
 	enabled = true
+[branch]
+	sort = -committerdate
