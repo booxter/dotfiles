@@ -169,7 +169,14 @@ require('gitsigns').setup()
 
 require'lspconfig'.pylsp.setup{}
 require'lspconfig'.gopls.setup{}
-require'lspconfig'.clangd.setup{}
+
+require'lspconfig'.clangd.setup{
+  on_attach = on_attach,
+  cmd = {
+    "clangd",
+    "--offset-encoding=utf-16",
+  },
+}
 require'toggleterm'.setup{
   -- size can be a number or function which is passed the current terminal
   size = function(term)
