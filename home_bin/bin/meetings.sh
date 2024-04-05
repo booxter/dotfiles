@@ -14,7 +14,7 @@ meetings() {
     -iep "title,notes" -po "title,notes" \
     -df "%Y-%M-%D" \
     eventsFrom:$DATE to:$DATE \
-  | grep 'meet.google.com' | grep reclaim.ai
+  | grep 'meet.google.com\|kaltura.com' | grep reclaim.ai
 }
 
 name() {
@@ -26,7 +26,7 @@ name() {
 }
 
 url() {
-  echo "$1" | grep -o 'https://meet.google.com/[^ ]*'
+  echo "$1" | grep -E -o 'https://([^ ]*?)(meet.google.com|kaltura.com)/([^ "]*)' | head -n 1
 }
 
 IFS=$'\n'
@@ -35,6 +35,7 @@ for m in $(meetings); do
   if [ "x" = "x$url" ]; then
     echo $(name "$m")
   else
+    IFS=$' '
     echo $(url "$m") $(name "$m")
   fi
 done
