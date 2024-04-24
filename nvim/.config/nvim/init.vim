@@ -35,7 +35,7 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'RaafatTurki/corn.nvim'
 
 " smooth scroll
-Plug 'karb94/neoscroll.nvim'
+"Plug 'karb94/neoscroll.nvim'
 
 " langs
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
