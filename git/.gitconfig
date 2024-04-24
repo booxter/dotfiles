@@ -23,3 +23,5 @@
 	enabled = true
 [branch]
 	sort = -committerdate
+[maintenance]
+	repo = /Users/ihrachys/git/ovn
