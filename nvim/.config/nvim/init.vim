@@ -164,7 +164,7 @@ require('ufo').setup({
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
-require('neoscroll').setup()
+"require('neoscroll').setup()
 require('gitsigns').setup()
 
 require'lspconfig'.pylsp.setup{}
