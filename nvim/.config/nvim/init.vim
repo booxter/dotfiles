@@ -28,7 +28,6 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'piersolenski/wtf.nvim'
 
 Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo'
 
 Plug 'ray-x/lsp_signature.nvim'
 
@@ -50,7 +49,7 @@ Plug 'lewis6991/gitsigns.nvim'
 "Plug 'hrsh7th/cmp-path'
 "Plug 'hrsh7th/cmp-cmdline'
 
-Plug 'preservim/vim-markdown'
+"Plug 'preservim/vim-markdown'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lua/plenary.nvim'
@@ -113,12 +112,6 @@ set conceallevel=1
 " rebalance pane sizes on terminal size change
 autocmd VimResized * wincmd =
 
-" folding (from https://github.com/kevinhwang91/nvim-ufo#quickstart)
-set foldcolumn=1
-set foldlevel=99
-set foldlevelstart=99
-set foldenable
-
 set number
 set relativenumber
 
@@ -157,12 +150,6 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     table.insert(newVirtText, {suffix, 'MoreMsg'})
     return newVirtText
 end
-require('ufo').setup({
-    fold_virt_text_handler = handler
-})
-
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 require('gitsigns').setup()
 
