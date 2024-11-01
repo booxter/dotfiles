@@ -1,5 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
+### Expected output format:
+# <URL> <MEETING-NAME>
+
+videoServices=("meet.google.com" "kaltura.com")
+calendarName="ihrachys@redhat.com"
+configDir="~/.gcalcli-rh"
+
+
+# Use current date if not passed through envVar
 if [ "x" = "x${DATE}" ]; then
   if [ ! $# -eq 1 ]; then
     DATE=$(date "+%Y-%m-%d")
@@ -8,34 +17,40 @@ if [ "x" = "x${DATE}" ]; then
   fi
 fi
 
-meetings() {
-  ~/bin/icalBuddy \
-    -b "- " -nnr " " -eed -npn -nc -ps "/ --- /" \
-    -iep "title,notes" -po "title,notes" \
-    -df "%Y-%M-%D" \
-    eventsFrom:$DATE to:$DATE \
-  | grep 'meet.google.com\|kaltura.com' | grep reclaim.ai
+function join_by {
+  local d=${1-} f=${2-}
+  if shift 2; then
+    printf %s "$f" "${@/#/$d}"
+  fi
 }
 
+sanitize() {
+  sed "s/[\/|]/~/g" | sed "s/:/-/g"
+}
+
+# This assumed a particular order in the output of gcalcli; may break at one point if they ever change it!
 name() {
-  echo $1 |\
-  sed "s/ ---.*$//g" |\
-  sed "s/^-/$DATE/g" |\
-  sed "s/[\/|]/~/g" |\
-  sed "s/:/-/g"
+  echo $1 | awk -v FS='\t' -v OFS='\t' '{print $7}' | sanitize
 }
 
+# Filter out meetings with no expected URLs for services that I expect to be served through video
 url() {
-  echo "$1" | grep -E -o 'https://([^ ]*?)(meet.google.com|kaltura.com)/([^ "]*)' | head -n 1
+  echo "$1" | grep -Po "https://($(join_by "|" $videoServices))[^\t]+"
 }
+
+meetings=$(\
+  gcalcli --config-folder $configDir --calendar $calendarName \
+      search '' "$DATE 00:00" "$DATE 23:59" \
+      --detail conference \
+      --tsv \
+      --nodeclined |\
+  tail -n +2) # truncate the table header line
 
 IFS=$'\n'
-for m in $(meetings); do
+for m in $meetings; do
+  IFS=$' '
   url=$(url "$m")
-  if [ "x" = "x$url" ]; then
-    echo $(name "$m")
-  else
-    IFS=$' '
+  if [ "x" != "x$url" ]; then
     echo $(url "$m") $(name "$m")
   fi
 done
