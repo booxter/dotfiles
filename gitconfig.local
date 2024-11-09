@@ -1,6 +1,0 @@
-[pw]
-# for ovn, get the key from https://patchwork.ozlabs.org/user/
-token = CHANGE_THIS
-
-[sendemail]
-smtpPass = CHANGE_THIS

@@ -1,3 +1,0 @@
-servers:
-- name: opendev  # server 0, select it with '-s 0'
-  url: https://review.opendev.org/
