@@ -10,6 +10,11 @@ for repo in neutron devstack requirements; do
 	git clone https://opendev.org/openstack/$repo
 done
 
+# TODO: remove when https://review.opendev.org/c/openstack/neutron/+/935024 merges
+# Install ovn packages since we are not compiling it and functional tests depend on schemas
+cd $BASEDIR/devstack
+git fetch https://review.opendev.org/openstack/neutron refs/changes/24/935024/1 && git cherry-pick FETCH_HEAD
+
 cd $BASEDIR/neutron
 Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
 
