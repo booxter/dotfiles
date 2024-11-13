@@ -1,0 +1,16 @@
+#!/bin/sh
+
+FILENAME=$(date +%Y-W%W).pdf
+ABSNAME=~/$FILENAME
+
+FROMADDR=ihrachys@redhat.com
+TOADDRS=dalvarez@redhat.com,bcafarel@redhat.com
+
+if ! [ -f $ABSNAME ]; then
+	echo "No report file $ABSNAME found. Weekly status email not sent!" >&2
+	exit 1
+fi
+
+mailsend-go -from $FROMADDR -t $TOADDRS -sub "Weekly status" \
+	-use gmail auth -user $FROMADDR -pass $(pass rh/google.com) \
+	body -msg "Attached.$* Cheers." attach -file $ABSNAME -name Ihar-$FILENAME
