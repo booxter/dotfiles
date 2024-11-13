@@ -1,9 +1,24 @@
 #!/bin/sh
 
+set -xe
+
 BASEDIR=/opt/stack
+PACKAGES="tox git"
 
 sudo mkdir -p $BASEDIR
 sudo chmod a+rwx $BASEDIR
+
+if [ -f /etc/redhat-release ]; then
+  sudo dnf config-manager --set-enabled crb
+  sudo dnf install --enablerepo=epel -y $PACKAGES
+	sudo dnf install -y centos-release-nfv-openvswitch centos-release-openstack-antelope
+else
+  sudo apt-get install -y $PACKAGES
+fi
+
+# Otherwise cherry-picks fail with: fatal: unable to auto-detect email address (got 'ihrachys@lima-devstack.(none)')
+git config --global user.email "ihar.hrachyshka@gmail.com"
+git config --global user.name "Ihar Hrachyshka"
 
 cd $BASEDIR
 for repo in neutron devstack requirements; do
@@ -18,13 +33,4 @@ git fetch https://review.opendev.org/openstack/neutron refs/changes/24/935024/1 
 cd $BASEDIR/neutron
 Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
 
-if [ -f /etc/redhat-release ]; then
-  # from https://docs.fedoraproject.org/en-US/epel/getting-started/
-  sudo dnf config-manager --set-enabled crb
-	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel{,-next}-release-latest-9.noarch.rpm
-
-  sudo dnf install -y python-tox
-else
-  sudo apt-get install -y tox
-fi
 tox -e dsvm-functional
