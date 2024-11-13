@@ -18,5 +18,13 @@ git fetch https://review.opendev.org/openstack/neutron refs/changes/24/935024/1 
 cd $BASEDIR/neutron
 Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
 
-sudo apt-get install -y tox
+if [ -f /etc/redhat-release ]; then
+  # from https://docs.fedoraproject.org/en-US/epel/getting-started/
+  sudo dnf config-manager --set-enabled crb
+	sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel{,-next}-release-latest-9.noarch.rpm
+
+  sudo dnf install -y python-tox
+else
+  sudo apt-get install -y tox
+fi
 tox -e dsvm-functional
