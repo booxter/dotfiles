@@ -1,0 +1,19 @@
+#!/bin/sh
+
+BASEDIR=/opt/stack
+
+sudo mkdir -p $BASEDIR
+sudo chmod a+rwx $BASEDIR
+
+pushd $BASEDIR
+for repo in neutron devstack requirements; do
+	git clone https://opendev.org/openstack/$repo
+done
+popd
+
+pushd $BASEDIR/neutron
+Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
+
+sudo apt-get install -y tox
+tox -e dsvm-functional
+popd
