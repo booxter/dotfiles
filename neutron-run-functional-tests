@@ -1,15 +1,17 @@
 #!/bin/sh
 
 VMNAME=devstack
-MEM=8
+MEM=16
 CPUS=12
 OS=ubuntu-22.04
+OS="${1:-ubuntu-22.04}"
 
 BINDIR=/Users/ihrachys/.priv-bin/
 
 limactl stop $VMNAME || true
 limactl delete $VMNAME || true
-limactl create --name=$VMNAME --memory $MEM --cpus $CPUS --tty=false template://$OS
+# TODO: post legacyBIOS setting to upstream
+limactl create --name=$VMNAME --memory $MEM --cpus $CPUS --tty=false --set='.firmware.legacyBIOS=false' template://$OS
 limactl start $VMNAME
 
 export TERM=xterm
