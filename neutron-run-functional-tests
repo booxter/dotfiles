@@ -1,17 +1,16 @@
 #!/bin/sh
 
-BASEDIR=/opt/stack
+VMNAME=devstack
+MEM=8
+CPUS=12
+OS=ubuntu-22.04
 
-sudo mkdir -p $BASEDIR
-sudo chmod a+rwx $BASEDIR
+BINDIR=/Users/ihrachys/.priv-bin/
 
-cd $BASEDIR
-for repo in neutron devstack requirements; do
-	git clone https://opendev.org/openstack/$repo
-done
+limactl stop $VMNAME || true
+limactl delete $VMNAME || true
+limactl create --name=$VMNAME --memory $MEM --cpus $CPUS --tty=false template://$OS
+limactl start $VMNAME
 
-cd $BASEDIR/neutron
-Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
-
-sudo apt-get install -y tox
-tox -e dsvm-functional
+export TERM=xterm
+limactl shell $VMNAME $BINDIR/neutron-run-functional-tests.inside-vm
