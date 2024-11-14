@@ -52,6 +52,8 @@ sudo dnf install -y python3-neutron-lib-tests python3-ovsdbapp-tests
 # Truncate reqs
 echo > requirements.txt
 echo > test-requirements.txt
+echo > neutron/tests/functional/requirements.txt
+sed -i '/hacking>=/d' tox.ini
 
 sudo python3 -m pip install --force-reinstall --no-deps .
 tox --sitepackages -e dsvm-functional
