@@ -33,9 +33,25 @@ done
 # TODO: remove when https://review.opendev.org/c/openstack/neutron/+/935024 merges
 # Install ovn packages since we are not compiling it and functional tests depend on schemas
 cd $BASEDIR/neutron
+git checkout stable/2023.1
 git fetch https://review.opendev.org/openstack/neutron refs/changes/24/935024/1 && git cherry-pick FETCH_HEAD
 
 cd $BASEDIR/neutron
 Q_BUILD_OVS_FROM_GIT=False ./tools/configure_for_func_testing.sh ../devstack -i
 
-tox -e dsvm-functional
+# Install deps from rpms
+dep_list=$(dnf deplist python3-neutron | grep provider | sort -u | awk '{print $2}')
+sudo dnf install -y $dep_list
+
+dep_list=$(dnf deplist python3-neutron-tests | grep provider | grep -v python3-neutron | sort -u | awk '{print $2}')
+sudo dnf install -y $dep_list
+
+# TODO: does it mean these libraries should not be split?..
+sudo dnf install -y python3-neutron-lib-tests python3-ovsdbapp-tests
+
+# Truncate reqs
+echo > requirements.txt
+echo > test-requirements.txt
+
+sudo python3 -m pip install --force-reinstall --no-deps .
+tox --sitepackages -e dsvm-functional
