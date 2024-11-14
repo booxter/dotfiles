@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -xe
+
 VMNAME=devstack
 MEM=16
 CPUS=12

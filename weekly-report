@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -xe
+
 FILENAME=$(date +%Y-W%W).pdf
 ABSNAME=~/$FILENAME
 
