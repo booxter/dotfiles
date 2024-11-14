@@ -10,13 +10,13 @@ sudo chmod a+rwx $BASEDIR
 
 if [ -f /etc/redhat-release ]; then
   # lima removes NetworkManager and installs iptables-legacy that then conflicts with other packages, hence --allowerasing
-	# TODO: report a bug to use native el9 firewall instead of iptables
+  # TODO: report a bug to use native el9 firewall instead of iptables
   sudo dnf upgrade -y --allowerasing
   sudo dnf config-manager --set-enabled crb
   sudo dnf install --enablerepo=epel -y $PACKAGES centos-release-openstack-antelope
 
-	# ovs services fail to start with selinux
-	sudo setenforce Permissive
+  # ovs services fail to start with selinux
+  sudo setenforce Permissive
 else
   sudo apt-get install -y $PACKAGES
 fi
@@ -27,7 +27,7 @@ git config --global user.name "Ihar Hrachyshka"
 
 cd $BASEDIR
 for repo in neutron devstack requirements; do
-	git clone https://opendev.org/openstack/$repo
+  git clone https://opendev.org/openstack/$repo
 done
 
 # TODO: remove when https://review.opendev.org/c/openstack/neutron/+/935024 merges
