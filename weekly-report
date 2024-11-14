@@ -6,7 +6,14 @@ FILENAME=$(date +%Y-W%W).pdf
 ABSNAME=~/$FILENAME
 
 FROMADDR=ihrachys@redhat.com
-TOADDRS=dalvarez@redhat.com,bcafarel@redhat.com
+
+ADDRESSEES="dalvarez bcafarel"
+
+function join_company {
+	echo $ADDRESSEES | sed "s/ /@$1 /g; s/$/@$1/"
+}
+
+TOADDRS=$(join_company redhat.com)
 
 if ! [ -f $ABSNAME ]; then
 	echo "No report file $ABSNAME found. Weekly status email not sent!" >&2
