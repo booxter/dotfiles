@@ -9,9 +9,14 @@ sudo mkdir -p $BASEDIR
 sudo chmod a+rwx $BASEDIR
 
 if [ -f /etc/redhat-release ]; then
+  # lima removes NetworkManager and installs iptables-legacy that then conflicts with other packages, hence --allowerasing
+	# TODO: report a bug to use native el9 firewall instead of iptables
+  sudo dnf upgrade -y --allowerasing
   sudo dnf config-manager --set-enabled crb
-  sudo dnf install --enablerepo=epel -y $PACKAGES
-	sudo dnf install -y centos-release-nfv-openvswitch centos-release-openstack-antelope
+  sudo dnf install --enablerepo=epel -y $PACKAGES centos-release-openstack-antelope
+
+	# ovs services fail to start with selinux
+	sudo setenforce Permissive
 else
   sudo apt-get install -y $PACKAGES
 fi
