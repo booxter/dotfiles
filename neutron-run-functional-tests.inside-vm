@@ -56,4 +56,8 @@ echo > neutron/tests/functional/requirements.txt
 sed -i '/hacking>=/d' tox.ini
 
 sudo python3 -m pip install --force-reinstall --no-deps .
+
+# pip install produced some root owned files, fix it
+sudo chown -R $(id -un):$(id -gn) .
+
 tox --sitepackages -e dsvm-functional
