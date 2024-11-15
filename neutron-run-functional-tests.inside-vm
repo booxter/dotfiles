@@ -26,6 +26,7 @@ git config --global user.email "ihar.hrachyshka@gmail.com"
 git config --global user.name "Ihar Hrachyshka"
 
 cd $BASEDIR
+# TODO: pin devstack and requirements repos to avoid unnecessary breakages?
 for repo in neutron devstack requirements; do
   git clone https://opendev.org/openstack/$repo
 done
