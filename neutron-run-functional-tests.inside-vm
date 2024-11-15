@@ -60,4 +60,5 @@ sudo python3 -m pip install --force-reinstall --no-deps .
 # pip install produced some root owned files, fix it
 sudo chown -R $(id -un):$(id -gn) .
 
+export OS_FAIL_ON_MISSING_DEPS=0 # don't fail on postgresql tests
 tox --sitepackages -e dsvm-functional
