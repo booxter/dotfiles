@@ -2,7 +2,24 @@
 
 set -xe
 
-FILENAME=$(date +%Y-W%W).pdf
+# Default week offset is 0 (current week)
+WEEK_OFFSET=0
+
+# Parse options
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --prev)
+      WEEK_OFFSET=-1
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+
+# Calculate the filename based on the offset
+FILENAME=$(date -d "$WEEK_OFFSET week" +%Y-W%W).pdf
+
 ABSNAME=~/$FILENAME
 
 FROMADDR=ihrachys@redhat.com
@@ -10,16 +27,16 @@ FROMADDR=ihrachys@redhat.com
 ADDRESSEES="dalvarez bcafarel"
 
 function join_company {
-	echo $ADDRESSEES | sed "s/ /@$1 /g; s/$/@$1/"
+  echo $ADDRESSEES | sed "s/ /@$1 /g; s/$/@$1/"
 }
 
 TOADDRS=$(join_company redhat.com)
 
 if ! [ -f $ABSNAME ]; then
-	echo "No report file $ABSNAME found. Weekly status email not sent!" >&2
-	exit 1
+  echo "No report file $ABSNAME found. Weekly status email not sent!" >&2
+  exit 1
 fi
 
 mailsend-go -from $FROMADDR -t $TOADDRS -sub "Weekly status" \
-	-use gmail auth -user $FROMADDR -pass $(pass rh/google.com) \
-	body -msg "Attached.$* Cheers." attach -file $ABSNAME -name Ihar-$FILENAME
+  -use gmail auth -user $FROMADDR -pass $(pass rh/google.com) \
+  body -msg "Attached.$* Cheers." attach -file $ABSNAME -name Ihar-$FILENAME
