@@ -13,6 +13,7 @@ while [ "$#" -gt 0 ]; do
       shift
       ;;
     *)
+      break
       ;;
   esac
 done
@@ -37,6 +38,14 @@ if ! [ -f $ABSNAME ]; then
   exit 1
 fi
 
+# Calculate final message body; if additional arguments were passed, inject as
+# an additional commentary; otherwise, just send a boilerplate.
+MSG="Attached."
+if [ "$#" -gt 0 ]; then
+  MSG="${MSG}\n\n---\n\n$*\n\n---"
+fi
+MSG="${MSG}\n\nCheers!"
+
 mailsend-go -from $FROMADDR -t $TOADDRS -sub "Weekly status" \
   -use gmail auth -user $FROMADDR -pass $(pass rh/google.com) \
-  body -msg "Attached.$* Cheers." attach -file $ABSNAME -name Ihar-$FILENAME
+  body -msg "$MSG" attach -file $ABSNAME -name Ihar-$FILENAME
