@@ -49,3 +49,8 @@ MSG="${MSG}\n\nCheers!"
 mailsend-go -from $FROMADDR -t $TOADDRS -sub "Weekly status" \
   -use gmail auth -user $FROMADDR -pass $(pass rh/google.com) \
   body -msg "$MSG" attach -file $ABSNAME -name Ihar-$FILENAME
+
+# Success; move to archived reports
+ARCHIVES=~/reports
+mkdir -p $ARCHIVES
+mv $ABSNAME $ARCHIVES
