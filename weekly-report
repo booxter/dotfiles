@@ -19,7 +19,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 # Calculate the filename based on the offset
-FILENAME=$(date -d "$WEEK_OFFSET week" +%Y-W%W).pdf
+FILENAME=$(date -d "$WEEK_OFFSET week" +%Y-W%V).pdf
 
 ABSNAME=~/$FILENAME
 
