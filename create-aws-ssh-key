@@ -1,0 +1,8 @@
+#!/bin/sh
+
+KEY_NAME=`whoami`
+KEY_FILE=~/.aws/$KEY_NAME.pem
+
+mkdir -p ~/.aws
+aws ec2 create-key-pair --key-name $KEY_NAME --query 'KeyMaterial' --output text > "$KEY_FILE"
+chmod 400 $KEY_FILE
