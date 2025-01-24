@@ -15,8 +15,8 @@ $ssh 'git clone https://github.com/booxter/nix.git ~/src/nix'
 # install home-manager config
 $ssh 'bash -l -c "cd ~/src/nix && make home-switch"'
 
-# switch default shell to zsh
-$ssh 'sudo dnf install -y zsh'
-$ssh 'sudo chsh -s /usr/bin/zsh $USER'
+# switch default shell to zsh; this is awkward but works
+# idea from https://discourse.nixos.org/t/unable-to-set-or-use-zsh-shell-from-standalone-home-manager-using-flakes/29269/3
+$ssh 'echo "exec zsh" >> ~/.bash_profile'
 
 echo 'DONE!'
