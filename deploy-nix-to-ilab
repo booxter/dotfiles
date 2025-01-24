@@ -1,0 +1,22 @@
+#!/bin/bash
+
+ssh="$HOME/.priv-bin/cloud ssh"
+
+# install nix
+$ssh 'sudo install -d -m755 -o $(id -u) -g $(id -g) /nix'
+$ssh 'curl -L https://nixos.org/nix/install | sh'
+
+# fetch my nix flake
+$ssh 'sudo dnf install -y git make'
+$ssh 'mkdir -p ~/src'
+$ssh 'rm -r ~/src/nix'
+$ssh 'git clone https://github.com/booxter/nix.git ~/src/nix'
+
+# install home-manager config
+$ssh 'bash -l -c "cd ~/src/nix && make home-switch"'
+
+# switch default shell to zsh
+$ssh 'sudo dnf install -y zsh'
+$ssh 'sudo chsh -s /usr/bin/zsh $USER'
+
+echo 'DONE!'
