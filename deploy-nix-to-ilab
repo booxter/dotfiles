@@ -1,15 +1,24 @@
 #!/bin/bash
 
+set -ex
+
 ssh="$HOME/.priv-bin/cloud ssh"
+
+# update system first thing
+$ssh 'sudo dnf update'
 
 # install nix
 $ssh 'sudo install -d -m755 -o $(id -u) -g $(id -g) /nix'
 $ssh 'curl -L https://nixos.org/nix/install | sh'
+$ssh 'mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf'
+
+$ssh 'sudo cp /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt'
+$ssh 'echo "export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> ~/.bashrc'
 
 # fetch my nix flake
 $ssh 'sudo dnf install -y git make'
 $ssh 'mkdir -p ~/src'
-$ssh 'rm -r ~/src/nix'
+$ssh '[ -e ~/src/nix ] && rm -rf ~/src/nix'
 $ssh 'git clone https://github.com/booxter/nix.git ~/src/nix'
 
 # install home-manager config
