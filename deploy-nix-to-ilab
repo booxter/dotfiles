@@ -28,4 +28,8 @@ $ssh 'bash -l -c "cd ~/src/nix && make home-switch"'
 # idea from https://discourse.nixos.org/t/unable-to-set-or-use-zsh-shell-from-standalone-home-manager-using-flakes/29269/3
 $ssh 'echo "exec zsh" >> ~/.bash_profile'
 
+$ssh 'sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
+$ssh 'echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
+$ssh 'echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
+
 echo 'DONE!'
