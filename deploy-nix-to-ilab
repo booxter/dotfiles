@@ -2,7 +2,10 @@
 
 set -ex
 
-ssh="$HOME/.priv-bin/cloud ssh"
+cloud="$HOME/.priv-bin/cloud"
+ssh="$cloud ssh"
+
+$cloud install-rh-nvidia-drivers
 
 # update system first thing
 $ssh 'sudo dnf update'
@@ -18,7 +21,7 @@ $ssh 'echo "export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> ~/.b
 # fetch my nix flake
 $ssh 'sudo dnf install -y git make'
 $ssh 'mkdir -p ~/src'
-$ssh '[ -e ~/src/nix ] && rm -rf ~/src/nix'
+$ssh '([ -e ~/src/nix ] || true) && rm -rf ~/src/nix'
 $ssh 'git clone https://github.com/booxter/nix.git ~/src/nix'
 
 # install home-manager config
@@ -32,4 +35,6 @@ $ssh 'sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
 $ssh 'echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
 $ssh 'echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
 
-echo 'DONE!'
+echo 'DONE! Rebooting...'
+
+$ssh sudo reboot
