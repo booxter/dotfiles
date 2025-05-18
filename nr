@@ -49,10 +49,16 @@ fi
 
 set -x
 NP=${NP:-"nixpkgs-review"}
-$NP \
-    pr $@ \
-    --no-shell \
-    "${extra_config}" \
-    ${post_result} ${approve_pr} \
-    --systems="${systems}" \
-    --build-args="--builders 'ssh-ng://rosetta-builder aarch64-linux,x86_64-linux - 2 10 - ; ssh://linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'"
+cmd=(
+    "$NP"
+    pr "$@"
+    --no-shell
+)
+if [ -n "$extra_config" ]; then
+    cmd+=("$extra_config")
+fi
+cmd+=(${post_result} ${approve_pr})
+cmd+=(--systems="${systems}")
+cmd+=(--build-args="--builders 'ssh-ng://rosetta-builder aarch64-linux,x86_64-linux - 2 10 - ; ssh://linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'")
+
+"${cmd[@]}"
