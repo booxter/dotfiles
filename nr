@@ -1,36 +1,36 @@
 #!/usr/bin/env bash
 
 usage() {
-    echo "Usage: $(basename "$0") [-p] [-a] [-s <systems>] [-C] PR_NUMBER"
-    echo "  -p: Post the result to GitHub"
-    echo "  -a: Approve the PR"
-    echo "  -s: Specify systems (default: all)"
-    echo "  -C: Enable CUDA support"
+  echo "Usage: $(basename "$0") [-p] [-a] [-s <systems>] [-C] PR_NUMBER"
+  echo "  -p: Post the result to GitHub"
+  echo "  -a: Approve the PR"
+  echo "  -s: Specify systems (default: all)"
+  echo "  -C: Enable CUDA support"
 }
 
 # Array of key = value strings
 extra_config=()
 
 while getopts ":aps:C" opt; do
-    case $opt in
-        p)
-            post_result="--post-result"
-            ;;
-        a)
-            approve_pr="--approve-pr"
-            ;;
-        C)
-            extra_config+=("cudaSupport = true;")
-            ;;
-        s)
-            systems="$OPTARG"
-            ;;
-        \?)
-            echo "Invalid option: -$OPTARG" >&2
-            usage
-            exit 1
-            ;;
-    esac
+  case $opt in
+    p)
+      post_result="--post-result"
+      ;;
+    a)
+      approve_pr="--approve-pr"
+      ;;
+    C)
+      extra_config+=("cudaSupport = true;")
+      ;;
+    s)
+      systems="$OPTARG"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      exit 1
+      ;;
+  esac
 done
 shift $((OPTIND-1))
 
@@ -42,20 +42,20 @@ extra_config_str=$(IFS=' '; echo "${extra_config[*]}")
 
 # if extra_config_str is not empty, add it to the extra-nixpkgs-config
 if [ -n "$extra_config_str" ]; then
-    extra_config="--extra-nixpkgs-config={ ${extra_config_str} }"
+  extra_config="--extra-nixpkgs-config={ ${extra_config_str} }"
 else
-    extra_config=""
+  extra_config=""
 fi
 
 set -x
 NP=${NP:-"nixpkgs-review"}
 cmd=(
-    "$NP"
-    pr "$@"
-    --no-shell
+  "$NP"
+  pr "$@"
+  --no-shell
 )
 if [ -n "$extra_config" ]; then
-    cmd+=("$extra_config")
+  cmd+=("$extra_config")
 fi
 cmd+=(${post_result} ${approve_pr})
 cmd+=(--systems="${systems}")
