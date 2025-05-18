@@ -8,6 +8,9 @@ usage() {
     echo "  -C: Enable CUDA support"
 }
 
+# Array of key = value strings
+extra_config=()
+
 while getopts ":aps:C" opt; do
     case $opt in
         p)
@@ -17,7 +20,7 @@ while getopts ":aps:C" opt; do
             approve_pr="--approve-pr"
             ;;
         C)
-            extra_config="cudaSupport = true;"
+            extra_config+=("cudaSupport = true;")
             ;;
         s)
             systems="$OPTARG"
@@ -33,15 +36,23 @@ shift $((OPTIND-1))
 
 
 systems=${systems:-"all"}
-extra_config=${extra_config:-""}
 
+# join extra_config array into a single string separated by ;
+extra_config_str=$(IFS=' '; echo "${extra_config[*]}")
+
+# if extra_config_str is not empty, add it to the extra-nixpkgs-config
+if [ -n "$extra_config_str" ]; then
+    extra_config="--extra-nixpkgs-config={ ${extra_config_str} }"
+else
+    extra_config=""
+fi
 
 set -x
 NP=${NP:-"nixpkgs-review"}
 $NP \
     pr $@ \
     --no-shell \
-    --extra-nixpkgs-config "{ ${extra_config} }" \
+    "${extra_config}" \
     ${post_result} ${approve_pr} \
     --systems="${systems}" \
     --build-args="--builders 'ssh-ng://rosetta-builder aarch64-linux,x86_64-linux - 2 10 - ; ssh://linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'"
