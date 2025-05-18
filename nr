@@ -37,7 +37,9 @@ extra_config=${extra_config:-""}
 
 
 set -x
-nixpkgs-review pr $@ \
+NP=${NP:-"nixpkgs-review"}
+$NP \
+    pr $@ \
     --no-shell \
     --extra-nixpkgs-config "{ ${extra_config} }" \
     ${post_result} ${approve_pr} \
