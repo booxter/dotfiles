@@ -2,7 +2,8 @@
 set -e
 
 REGISTRY=registry.stage.redhat.io
-SBOM_URL=https://atlas.devshift.net/sbom/content
+#SBOM_URL=https://atlas.devshift.net/sbom/content
+SBOM_URL=https://atlas.build.devshift.net
 
 if [ -z "$1" ]; then
 	echo "Usage: $0 <image>"
@@ -43,8 +44,4 @@ echo "Image: $IMAGE"
 echo "Path: $REGISTRY_PATH"
 echo "SBOM: $SBOM"
 
-# now open the SBOM in a browser
-ATLAS_URL="$SBOM_URL/$SBOM"
-echo "Opening Atlas SBOM profile in browser: $ATLAS_URL"
-
-open $ATLAS_URL
+echo "Now open $SBOM_URL in a browser and Search for $SBOM"
