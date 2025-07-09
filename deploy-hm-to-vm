@@ -14,6 +14,8 @@ VM=$1
 cloud="$HOME/.priv-bin/cloud"
 ssh="ssh $1"
 
+set -x
+
 # update system first thing
 $ssh 'sudo dnf update -y'
 
