@@ -1,8 +1,0 @@
-#!/bin/sh
-
-set -e
-
-if ! aws sts get-caller-identity >/dev/null 2>&1; then
-  aws-saml.py --session-duration 10800
-fi
-~/src/instructlab/scripts/infra/cloud-instance.sh ec2 $*
