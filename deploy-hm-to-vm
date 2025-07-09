@@ -7,8 +7,6 @@ if [ "$#" -ne 1 ]; then
 	exit 1
 fi
 
-exit 0
-
 VM=$1
 
 cloud="$HOME/.priv-bin/cloud"
