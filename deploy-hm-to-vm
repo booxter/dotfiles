@@ -1,47 +1,33 @@
 #!/bin/bash
 
-set -e
-
-if [ "$#" -ne 1 ]; then
-	echo "Usage: $(basename $0) hostname"
-	exit 1
-fi
-
-VM=$1
-
-cloud="$HOME/.priv-bin/cloud"
-ssh="ssh $1"
-
-set -x
-
 # update system first thing
-$ssh 'sudo dnf update -y'
+sudo dnf update -y
 
 # install nix
-$ssh 'sudo install -d -m755 -o $(id -u) -g $(id -g) /nix'
-$ssh 'curl -L https://nixos.org/nix/install | sh'
-$ssh 'mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf'
+sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
+curl -L https://nixos.org/nix/install | sh
+mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
-$ssh 'sudo cp /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt'
-$ssh 'echo "export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> ~/.bashrc'
+sudo cp /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+echo "export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> ~/.bashrc
 
 # fetch my nix flake
-$ssh 'sudo dnf install -y git make'
-$ssh 'mkdir -p ~/src'
-$ssh '([ -e ~/src/nix ] || true) && rm -rf ~/src/nix'
-$ssh 'git clone https://github.com/booxter/nix.git ~/src/nix'
+sudo dnf install -y git make
+mkdir -p ~/src
+([ -e ~/src/nix ] || true) && rm -rf ~/src/nix
+git clone https://github.com/booxter/nix.git ~/src/nix
 
 # install home-manager config
-$ssh 'bash -l -c "cd ~/src/nix && make home-switch"'
+bash -l -c "cd ~/src/nix && make home-switch"
 
 # switch default shell to zsh; this is awkward but works
 # idea from https://discourse.nixos.org/t/unable-to-set-or-use-zsh-shell-from-standalone-home-manager-using-flakes/29269/3
-$ssh 'echo "exec zsh" >> ~/.bash_profile'
+echo "exec zsh" >> ~/.bash_profile
 
-$ssh 'sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
-$ssh 'echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
-$ssh 'echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf'
+sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
+echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
+echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 
-echo 'DONE! Rebooting...'
+echo 'DONE! Rebooting...
 
 $ssh sudo reboot
