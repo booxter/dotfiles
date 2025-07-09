@@ -28,6 +28,6 @@ sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 
-echo 'DONE! Rebooting...
+echo 'DONE! Rebooting...'
 
-$ssh sudo reboot
+sudo reboot
