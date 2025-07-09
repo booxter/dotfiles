@@ -6,8 +6,13 @@ set -xe
 sudo dnf update -y
 
 # install nix
-sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
-curl -L https://nixos.org/nix/install | sh
+PROFILE=~/.nix-profile/etc/profile.d/nix.sh
+test -e $PROFILE && . ~/.nix-profile/etc/profile.d/nix.sh
+if ! command -v nix >/dev/null 2>&1; then
+  sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
+  bash <(curl -L https://nixos.org/nix/install) --daemon --yes
+  . $PROFILE
+fi
 mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
 sudo cp /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
@@ -20,11 +25,12 @@ mkdir -p ~/src
 git clone https://github.com/booxter/nix.git ~/src/nix
 
 # install home-manager config
-bash -l -c "cd ~/src/nix && make home-switch"
+pushd ~/src/nix && make home-switch-nvcloud && popd
 
 # switch default shell to zsh; this is awkward but works
 # idea from https://discourse.nixos.org/t/unable-to-set-or-use-zsh-shell-from-standalone-home-manager-using-flakes/29269/3
-echo "exec zsh" >> ~/.bash_profile
+echo "exec zsh" >> ~/.bash_profile # bash
+echo "exec zsh" >> ~/.login # csh
 
 sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
