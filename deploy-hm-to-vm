@@ -2,7 +2,7 @@
 
 set -ex
 
-if ! [ "$#" -ne 2 ]; then
+if ! [ "$#" -ne 1 ]; then
 	echo "Usage: $(basename $0) hostname"
 	exit 1
 fi
