@@ -3,9 +3,11 @@
 set -ex
 
 if ! [ #? -eq 1 ]; then
-	echo "Usage: $(basename $0) VM
+	echo "Usage: $(basename $0) hostname
 	exit 1
 fi
+
+exit 0
 
 VM=$1
 
