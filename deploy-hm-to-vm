@@ -17,6 +17,7 @@ if ! command -v nix >/dev/null 2>&1; then
   sudo systemctl enable nix-daemon
   sudo systemctl start nix-daemon
 
+  # Activate profile
   . $PROFILE
 fi
 mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
