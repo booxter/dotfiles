@@ -9,8 +9,14 @@ sudo dnf update -y
 PROFILE=~/.nix-profile/etc/profile.d/nix.sh
 test -e $PROFILE && . ~/.nix-profile/etc/profile.d/nix.sh
 if ! command -v nix >/dev/null 2>&1; then
+  # Install
   sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
   bash <(curl -L https://nixos.org/nix/install) --daemon --yes
+
+  # Make sure daemon is running
+  sudo systemctl enable nix-daemon
+  sudo systemctl start nix-daemon
+
   . $PROFILE
 fi
 mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
