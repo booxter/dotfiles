@@ -4,8 +4,8 @@
 
 HOSTS=(
   "darwin-builder"
-  "linux-builder"
-  "linux-x86-builder"
+  "remote-linux-builder"
+  "remote-linux-x86-builder"
   "localhost"
 )
 
