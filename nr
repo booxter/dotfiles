@@ -59,6 +59,6 @@ if [ -n "$extra_config" ]; then
 fi
 cmd+=(${post_result} ${approve_pr})
 cmd+=(--systems="${systems}")
-cmd+=(--build-args="--builders 'ssh-ng://builder@linux-builder x86_64-linux,aarch64-linux /etc/nix/builder_ed25519 8 1 kvm,benchmark,big-parallel; ssh://int-linux-builder x86_64-linux,aarch64-linux - 4 10 - - -; ssh-ng://rosetta-builder aarch64-linux,x86_64-linux - 2 10 - ; ssh://remote-linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://remote-linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'")
+cmd+=(--build-args="--builders 'ssh://int-linux-builder x86_64-linux,aarch64-linux - 4 10 - - -; ssh-ng://rosetta-builder aarch64-linux,x86_64-linux - 2 10 - ; ssh://remote-linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://remote-linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'")
 
 "${cmd[@]}"
