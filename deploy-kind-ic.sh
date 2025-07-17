@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+# source file from the running script dir
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. "$SCRIPTDIR/kind-common-vars"
+
 # This script deploys a Kind cluster with an IC HA setup.
 #
 mkdir -p ~/src
@@ -13,9 +17,6 @@ if [ ! -d "ovn-kubernetes" ]; then
 fi
 
 cd ovn-kubernetes
-
-# TODO: Remove this when the issue is fixed
-find . -name '*.sh' -exec sed -i 's|^#!/bin/bash|#!/usr/bin/env bash|g' {} \;
 
 # Build first
 pushd go-controller
@@ -31,10 +32,6 @@ popd
 # Create the Kind cluster
 pushd contrib
 export KUBECONFIG=${HOME}/ovn.conf
-
-export OVN_HA=false
-export OVN_ENABLE_INTERCONNECT=true
-export KIND_NUM_WORKER=3
 
 ./kind.sh
 popd
