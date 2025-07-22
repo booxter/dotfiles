@@ -16,9 +16,10 @@ pushd ~/src/nix && make home-switch-nvcloud && popd
 echo "exec zsh" >> ~/.bash_profile # bash
 echo "exec zsh" >> ~/.login # csh
 
-sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
-echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
-echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
+# NOTE: I don't think it's needed now that I use openssh_gssapi from nixpkgs
+#sudo rm -f /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
+#echo Match all | sudo tee /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
+#echo IgnoreUnknown "rsaminsize,gssapikexalgorithms" | sudo tee -a /etc/ssh/ssh_config.d/10-nixpkgs-support.conf
 
 echo 'DONE! Rebooting...'
 
