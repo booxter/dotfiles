@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -xeuo pipefail
+
+# update system first thing
+sudo dnf update -y
+
+# install nix
+PROFILE=~/.nix-profile/etc/profile.d/nix.sh
+test -e $PROFILE && . ~/.nix-profile/etc/profile.d/nix.sh
+if ! command -v nix >/dev/null 2>&1; then
+  # Install
+  sudo install -d -m755 -o $(id -u) -g $(id -g) /nix
+  bash <(curl -L https://nixos.org/nix/install) --daemon --yes
+
+  # Make sure daemon is running
+  sudo systemctl enable nix-daemon
+  sudo systemctl start nix-daemon
+fi
+mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+
+sudo cp /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
+echo "export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt" >> ~/.bashrc
