@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 response=$(spotify_player get key playback)
 
