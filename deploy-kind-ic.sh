@@ -45,12 +45,6 @@ fi
 
 cd ovn-kubernetes
 
-# Build first
-pushd go-controller
-
-make
-popd
-
 # Buld images
 pushd dist/images
 make fedora-image
