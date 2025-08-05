@@ -20,6 +20,7 @@ if $(kind get clusters | grep -q "$CLUSTER_NAME"); then
 fi
 
 # Unless --rebuild is specified, this script will not rebuild the cluster.
+export KIND_CREATE=true
 if [[ "$#" -eq 1 && "$1" == "--rebuild" && $CLUSTER_FOUND -eq 1 ]]; then
 		echo "Rebuilding the cluster..."
 		rm -rf ~/.kube/config ~/ovn.conf
@@ -54,6 +55,12 @@ pushd contrib
 export KUBECONFIG=${HOME}/ovn.conf
 
 ./kind.sh
+
+# clean up old images
+if [ "$KIND_CREATE" = false ]; then
+	$(basedir "$0")/kind-clean
+fi
+
 popd
 
 ln -sf ~/ovn.conf ~/.kube/config
