@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+# source file from the running script dir
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. "$SCRIPTDIR/kind-common-vars"
+
 if [[ "$#" -gt 0 && "$1" != "--rebuild" ]]; then
 		echo "Usage: $0 [--rebuild]"
 		echo "If --rebuild is specified, the script will rebuild the cluster."
@@ -9,7 +13,6 @@ if [[ "$#" -gt 0 && "$1" != "--rebuild" ]]; then
 fi
 
 # Check if kind cluster exists
-CLUSTER_NAME="ovn"
 CLUSTER_FOUND=0
 if $(kind get clusters | grep -q "$CLUSTER_NAME"); then
 		echo "Kind cluster '$CLUSTER_NAME' already exists."
@@ -28,10 +31,6 @@ else
 				export KIND_CREATE=false
 		fi
 fi
-
-# source file from the running script dir
-SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. "$SCRIPTDIR/kind-common-vars"
 
 # This script deploys a Kind cluster with an IC HA setup.
 #
