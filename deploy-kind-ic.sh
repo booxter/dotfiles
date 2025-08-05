@@ -21,11 +21,11 @@ if [[ "$#" -eq 1 && "$1" == "--rebuild" && $CLUSTER_FOUND -eq 1 ]]; then
 		echo "Rebuilding the cluster..."
 		rm -rf ~/.kube/config ~/ovn.conf
 else
-		export KIND_CREATE=false
 		if [[ $CLUSTER_FOUND -eq 0 ]]; then
 				echo "No existing cluster found. Creating a new one."
 		else
 				echo "Cluster already exists. Skipping creation."
+				export KIND_CREATE=false
 		fi
 fi
 
