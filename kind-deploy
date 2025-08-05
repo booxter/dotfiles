@@ -54,11 +54,6 @@ if ! git remote | grep -q fork; then
 	git remote add fork -f $(get_repo booxter)
 fi
 
-# Buld images
-pushd dist/images
-make fedora-image
-popd
-
 # Create the Kind cluster
 pushd contrib
 export KUBECONFIG=${HOME}/ovn.conf
