@@ -8,13 +8,25 @@ if [[ "$#" -gt 0 && "$1" != "--rebuild" ]]; then
 		exit 1
 fi
 
+# Check if kind cluster exists
+CLUSTER_NAME="ovn"
+CLUSTER_FOUND=0
+if $(kind get clusters | grep -q "$CLUSTER_NAME"); then
+		echo "Kind cluster '$CLUSTER_NAME' already exists."
+		CLUSTER_FOUND=1
+fi
+
 # Unless --rebuild is specified, this script will not rebuild the cluster.
-if [[ "$#" -eq 1 && "$1" == "--rebuild" ]]; then
+if [[ "$#" -eq 1 && "$1" == "--rebuild" && $CLUSTER_FOUND -eq 1 ]]; then
 		echo "Rebuilding the cluster..."
 		rm -rf ~/.kube/config ~/ovn.conf
 else
-		echo "Using existing cluster configuration."
 		export KIND_CREATE=false
+		if [[ $CLUSTER_FOUND -eq 0 ]]; then
+				echo "No existing cluster found. Creating a new one."
+		else
+				echo "Cluster already exists. Skipping creation."
+		fi
 fi
 
 # source file from the running script dir
