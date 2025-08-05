@@ -2,6 +2,21 @@
 
 set -euo pipefail
 
+if [[ "$#" -gt 0 && "$1" != "--rebuild" ]]; then
+		echo "Usage: $0 [--rebuild]"
+		echo "If --rebuild is specified, the script will rebuild the cluster."
+		exit 1
+fi
+
+# Unless --rebuild is specified, this script will not rebuild the cluster.
+if [[ "$#" -eq 1 && "$1" == "--rebuild" ]]; then
+		echo "Rebuilding the cluster..."
+		rm -rf ~/.kube/config ~/ovn.conf
+else
+		echo "Using existing cluster configuration."
+		export KIND_CREATE=false
+fi
+
 # source file from the running script dir
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . "$SCRIPTDIR/kind-common-vars"
