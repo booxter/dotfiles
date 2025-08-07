@@ -5,10 +5,12 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-HOSTNAME="$1"
-DNS_SERVER=192.168.1.1
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+source "$SCRIPT_DIR/functions-common"
 
-IP=$(dig +short "$HOSTNAME" @"$DNS_SERVER" | head -n1)
+HOSTNAME="$1"
+
+IP=$(get_local_ip "$HOSTNAME")
 
 if [ -n "$IP" ]; then
 	echo "Connecting to $IP..."

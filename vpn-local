@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+STATE=up
+
+# Usage: $0 [-u] <hostname>
+while getopts ":u" opt; do
+	case $opt in
+		u)
+			STATE=down
+			shift
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG" >&2
+			exit 1
+			;;
+	esac
+done
+
+HOSTNAME="$1"
+
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+source "$SCRIPT_DIR/functions-common"
+
+IP=$(get_local_ip "$HOSTNAME")
+
+if [ -n "$IP" ]; then
+	if [ "$STATE" = "up" ]; then
+		echo "Starting VPN @ $HOSTNAME (IP: $IP)"
+		vpn "$IP"
+	else
+		echo "Stopping VPN @ $HOSTNAME (IP: $IP)"
+		unvpn "$IP"
+	fi
+	exit 0
+else
+	echo "No IP address found for $HOSTNAME"
+	exit 1
+fi

@@ -1,0 +1,5 @@
+DNS_SERVER=192.168.1.1
+
+get_local_ip() {
+  dig +short "$1" @"$DNS_SERVER" | head -n1
+}
