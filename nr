@@ -59,6 +59,23 @@ if [ -n "$extra_config" ]; then
 fi
 cmd+=(${post_result} ${approve_pr})
 cmd+=(--systems="${systems}")
-cmd+=(--build-args="--builders 'ssh://remote-linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://remote-linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'")
 
+#### Initialize builders
+
+# Always use community builders
+builders='ssh://remote-linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://remote-linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test ; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'
+
+# Pick peer machines as builders.
+# We have to be careful not to create a loop, so we exclude the current host. nix doesn't support building on localhost via ssh.
+if [ $(hostname) != "mmini" ]; then
+  # Use higher speed factor for mac mini
+  builders+=' ; ssh://mmini x86_64-darwin,aarch64-darwin - 3 25 big-parallel'
+fi
+if [ $(hostname) != "mair" ]; then
+  # Use lower speed factor for macbook air
+  builders+=' ; ssh://mair x86_64-darwin,aarch64-darwin - 3 15 big-parallel'
+fi
+
+#### Execute command
+cmd+=(--build-args="--builders \"${builders}\"")
 "${cmd[@]}"
