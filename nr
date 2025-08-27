@@ -66,7 +66,7 @@ cmd+=(--systems="${systems}")
 builders='ssh://remote-linux-builder aarch64-linux - 10 20 benchmark,big-parallel,kvm,nixos-test ; ssh://remote-linux-x86-builder x86_64-linux - 5 20 benchmark,big-parallel,kvm,nixos-test ; ssh://darwin-builder x86_64-darwin,aarch64-darwin - 3 20 big-parallel'
 
 for i in {1..3}; do
-  builders+=" ; ssh://prox-builder${i}vm x86_64-linux - 5 1 benchmark,big-parallel,kvm,nixos-test"
+  builders+=" ; ssh://prox-builder${i}vm x86_64-linux - 5 100 benchmark,big-parallel,kvm,nixos-test"
 done
 
 # Pick peer machines as builders.
