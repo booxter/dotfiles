@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# This script will replace a single /16 wide route with multiple /24 routes, to
+# bump their priority comparing to any other routes in the same space. These
+# other routes may belong to a vpn server that I have no control over the
+# routing setting of.
+
+# First, remove the wide default route distributed by the openvpn server.
+MY_SUBNET=192.168.0.0/16
+sudo route delete -net $MY_SUBNET
+
+# Get the gateway IP of the openvpn interface on MacOS. I know that it belongs
+# to 10.8.0.0/24, as per openvpn config.
+GATEWAY_IP=$(netstat -nr | grep '^10\.8\.0\.' | grep -v '/' | awk '{print $1}')
+
+# Now for each /24 subnet that I care about, add a more specific route.
+# The 0-20 range is based on my home LAN config.
+for i in $(seq 0 20); do
+  sudo route add -net 192.168.$i.0/24 $GATEWAY_IP
+done
+
