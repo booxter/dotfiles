@@ -79,6 +79,10 @@ if [ $(hostname) != "mair" ]; then
   # Use lower speed factor for macbook air
   builders+=' ; ssh://mair x86_64-darwin,aarch64-darwin - 3 15 big-parallel'
 fi
+if [ $(hostname) != "frame" ]; then
+  # Use higher speed factor for frame
+  builders+=' ; ssh://frame x86_64-linux - 10 200 benchmark,big-parallel,kvm,nixos-test'
+fi
 
 #### Execute command
 cmd+=(--build-args="--builders \"${builders}\"")
