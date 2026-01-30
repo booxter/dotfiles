@@ -34,8 +34,8 @@ while getopts ":aps:C" opt; do
 done
 shift $((OPTIND-1))
 
-
-systems=${systems:-"all"}
+# Default systems if not specified; skip x86_64-darwin because it's f*cking slow
+systems=${systems:-"x86_64-linux aarch64-linux aarch64-darwin"}
 
 # join extra_config array into a single string separated by ;
 extra_config_str=$(IFS=' '; echo "${extra_config[*]}")
