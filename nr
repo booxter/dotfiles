@@ -48,9 +48,9 @@ else
 fi
 
 set -x
-NP=${NP:-"nixpkgs-review"}
+NR=${NR:-"nixpkgs-review"}
 cmd=(
-  "$NP"
+  "$NR"
   pr "$@"
   --no-shell
 )
